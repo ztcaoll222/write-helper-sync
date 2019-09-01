@@ -1,7 +1,10 @@
 package cn.ztcaoll222.write.helper.sync.core.bucket;
 
 import cn.ztcaoll222.write.helper.sync.common.ObjectUtil;
+import cn.ztcaoll222.write.helper.sync.entity.ResponseEntity;
+import cn.ztcaoll222.write.helper.sync.entity.ResponseEnum;
 import cn.ztcaoll222.write.helper.sync.interfaces.bucket.BucketService;
+import cn.ztcaoll222.write.helper.sync.rsync.entity.Patch;
 import lombok.extern.flogger.Flogger;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,11 +24,11 @@ public class BucketController {
     private BucketService bucketService;
 
     @PostMapping("/sync")
-    public boolean sync(String id, String path, String text) {
-        log.atInfo().log("id: %s, path: %s", id, path);
-        if (!ObjectUtil.checkObj(id, path)) {
-            return false;
+    public ResponseEntity<Boolean> sync(String id, String rootDirName, String filename, Patch patch) {
+        log.atInfo().log("sync: id: %s", id);
+        if (!ObjectUtil.checkObj(id, rootDirName, filename, patch)) {
+            return ResponseEntity.create(ResponseEnum.ERROR);
         }
-        return bucketService.save(id, path, text);
+        return ResponseEntity.create(ResponseEnum.SUCCESS, bucketService.save(id, rootDirName, filename, patch));
     }
 }

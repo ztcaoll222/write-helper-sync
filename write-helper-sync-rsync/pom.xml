@@ -9,13 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>write-helper-sync-config</artifactId>
+    <artifactId>write-helper-sync-rsync</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>write-helper-sync-rsync-entity</module>
+        <module>write-helper-sync-rsync-core</module>
+    </modules>
 
-    <dependencies>
-        <dependency>
-            <groupId>cn.ztcaoll222</groupId>
-            <artifactId>write-helper-sync-rsync-entity</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
+
 </project>

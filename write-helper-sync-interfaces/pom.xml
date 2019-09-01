@@ -11,5 +11,17 @@
 
     <artifactId>write-helper-sync-interfaces</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>cn.ztcaoll222</groupId>
+            <artifactId>write-helper-sync-entity</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
+        <dependency>
+            <groupId>cn.ztcaoll222</groupId>
+            <artifactId>write-helper-sync-rsync-entity</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>

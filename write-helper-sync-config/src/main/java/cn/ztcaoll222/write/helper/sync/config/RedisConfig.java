@@ -1,5 +1,6 @@
 package cn.ztcaoll222.write.helper.sync.config;
 
+import cn.ztcaoll222.write.helper.sync.rsync.entity.Patch;
 import lombok.extern.flogger.Flogger;
 import org.redisson.api.RMap;
 import org.redisson.api.RedissonClient;
@@ -20,7 +21,7 @@ public class RedisConfig {
     }
 
     @Bean(name = "syncBucket")
-    public RMap<String, String> syncBucket() {
+    public RMap<String, Patch> syncBucket() {
         log.atInfo().log("init sync:bucket");
         return client.getMap("sync:bucket");
     }
