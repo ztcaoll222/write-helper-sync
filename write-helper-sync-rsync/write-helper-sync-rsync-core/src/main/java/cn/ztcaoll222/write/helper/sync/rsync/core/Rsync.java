@@ -69,17 +69,6 @@ public class Rsync {
     }
 
     /**
-     * 根据传入的字节数组去匹配，如果匹配到则返回该 Chunk, 否者为空
-     */
-    public static Optional<Chunk> match(Map<Long, List<Chunk>> chunkMaps, byte[] bytes) {
-        return Optional.of(chunkMaps.get(Alder32.sum(bytes)))
-                .flatMap(chunkList -> chunkList.stream().
-                        filter(chunk -> MD5Util.encodeToBase64Optional(bytes).map(chunk.getStrongCheckSum()::equals)
-                                .orElse(false))
-                        .findFirst());
-    }
-
-    /**
      * 读取下一块
      */
     public static byte[] readNextChunk(@NotNull RandomAccessFile raf, long length) throws IOException {
@@ -99,6 +88,19 @@ public class Rsync {
             System.arraycopy(bytes, 1, bytes, 0, bytes.length - 1);
         }
         bytes[bytes.length - 1] = next[0];
+    }
+
+    /**
+     * 根据传入的字节数组去匹配，如果匹配到则返回该 Chunk, 否者为空
+     */
+    public static Optional<Chunk> match(Map<Long, List<Chunk>> chunkMaps, byte[] bytes) {
+        Optional<String> md5Optional = MD5Util.encodeToBase64Optional(bytes);
+
+        return Optional.of(chunkMaps.get(Alder32.sum(bytes)))
+                .flatMap(chunkList -> chunkList.stream().
+                        filter(chunk -> md5Optional.map(chunk.getStrongCheckSum()::equals)
+                                .orElse(false))
+                        .findFirst());
     }
 
     /**

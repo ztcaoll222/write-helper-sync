@@ -1,7 +1,9 @@
 package cn.ztcaoll222.write.helper.sync.rsync.entity;
 
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Setter;
 
 /**
  * 匹配的 chunk
@@ -14,6 +16,7 @@ import lombok.EqualsAndHashCode;
 public class MatchPatchPart extends PatchPart {
     private static final long serialVersionUID = -4549024071937604120L;
 
+    @Setter(AccessLevel.NONE)
     private long index;
 
     public MatchPatchPart(long index) {
